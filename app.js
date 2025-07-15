@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-    'https://ruamnenezeslimal23.github.io/PixelLibrary-Frontend/', // frontend no GitHub Pages
+    'https://ruanmenezeslima123.github.io/PixelLibrary-Frontend/', // frontend no GitHub Pages
     'http://localhost:3000'                 // Para desenvolvimento local
   ],
   credentials: true,
