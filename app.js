@@ -6,12 +6,26 @@ const cors = require('cors');
 
 const app = express();
 
-// Configuração CORRETA do CORS
-app.use(cors({
-  origin: 'https://ruanmenezeslima123.github.io',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+const allowedOrigins = ['https://ruanmenezeslima123.github.io'];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204); // No Content
+  }
+
+  next();
+});
+
 
 
 // Middlewares
