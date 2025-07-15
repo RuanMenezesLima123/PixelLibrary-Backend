@@ -10,12 +10,13 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-    'https://ruamnenezeslimal23.github.io', // frontend no GitHub Pages
+    'https://ruamnenezeslimal23.github.io/PixelLibrary-Frontend/', // frontend no GitHub Pages
     'http://localhost:3000'                 // Para desenvolvimento local
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Métodos permitidos
 }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Conexão com MongoDB
