@@ -7,16 +7,12 @@ const cors = require('cors');
 const app = express();
 
 // Configuração CORRETA do CORS
-const corsOptions = {
-  origin: [
-    'https://ruamenezeslima123.github.io', // Seu frontend no GitHub Pages
-    'http://localhost:3000'                // Para desenvolvimento local
-  ],
-  credentials: true,
+app.use(cors({
+  origin: 'https://ruanmenezeslima123.github.io',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions));
+  credentials: true
+}));
+
 
 // Middlewares
 app.use(express.json());
