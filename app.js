@@ -9,10 +9,12 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://seu-site.com'] 
-    : ['http://localhost:3000'],
-  credentials: true
+  origin: [
+    'https://ruamnenezeslimal23.github.io', // frontend no GitHub Pages
+    'http://localhost:3000'                 // Para desenvolvimento local
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Métodos permitidos
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
