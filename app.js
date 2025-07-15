@@ -6,21 +6,24 @@ const cors = require('cors');
 
 const app = express();
 
-// Middlewares
-app.use(express.json());
-app.use(cors({
+// Configuração CORRETA do CORS
+const corsOptions = {
   origin: [
-    'https://ruanmenezeslima123.github.io/PixelLibrary-Frontend/', // frontend no GitHub Pages
-    'http://localhost:3000'                 // Para desenvolvimento local
+    'https://ruamenezeslima123.github.io', // Seu frontend no GitHub Pages
+    'http://localhost:3000'                // Para desenvolvimento local
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Métodos permitidos
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 
+// Middlewares
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Conexão com MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://pixel_user:Pixel2025@users.q6waunv.mongodb.net/pixelLibraryDB?retryWrites=true&w=majority&appName=Users')
+// Conexão com MongoDB (CORRIGIDO o nome da variável)
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://pixel_user:Pixel2025@users.q6waunv.mongodb.net/pixellibraryDB?retryWrites=true&w=majority')
   .then(() => console.log('✅ Conectado ao MongoDB Atlas'))
   .catch((err) => console.error('❌ Erro na conexão com o MongoDB:', err));
 
@@ -41,15 +44,9 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'healthy' });
 });
 
-// Tratamento de erros global
-app.use((err, req, res, next) => {
-  console.error('Erro:', err.stack);
-  res.status(500).json({ error: 'Erro interno do servidor' });
-});
-
-// Inicialização do servidor
+// Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
   console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
